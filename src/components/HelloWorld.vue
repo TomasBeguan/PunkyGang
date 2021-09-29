@@ -21,7 +21,7 @@
           <a
             href="https://community.vuetifyjs.com"
             target="_blank"
-          >Discord Community</a>
+          >NONONO</a>
         </p>
       </v-col>
 
@@ -30,7 +30,7 @@
         cols="12"
       >
         <h2 class="headline font-weight-bold mb-3">
-          What's next?
+          SAKJDA
         </h2>
 
         <v-row justify="center">
