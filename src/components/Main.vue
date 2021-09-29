@@ -15,23 +15,21 @@
         </v-card>
         <v-expansion-panels>
           <v-expansion-panel
-            v-for="(item,i) in 10"
-            :key="i"
+            v-for="value in attributes"
+            :key="value.DocID"  
           >
               <v-expansion-panel-header>
-                Skin
+                {{value}}
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 <v-checkbox
-                  v-model="selected"
-                  label="Honey"
-                  value="Honey"
-                ></v-checkbox>
-                <v-checkbox
-                  v-model="selected"
-                  label="Almond"
-                  value="Almond"
-                ></v-checkbox>
+                    v-for="attribute in attributes"
+                    :key="attribute.DocID"
+                    v-model="selected"
+                    :label=attribute
+                    :value=attribute
+                >
+                </v-checkbox>
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
@@ -148,7 +146,24 @@ import datos from "../assets/json/punkys.json";
 
     data: () => ({
         drawer: null,
-        search: ''
+        search: '',
+        attributes:{
+            Skin: 'Skin',
+            Hair: 'Hair',
+            HairColor: 'Hair Color',
+            Eyes: 'Eyes',
+            RightEar: 'Right Ear',
+            LeftEar: 'Left Ear',
+            Mouth: 'Mouth',
+            Background: 'Background',
+            Accessory: 'Accessory',
+            Extra: 'Extra',
+        },
+        checks: [
+            {Skin:['red', 'white',]},
+            {Hair:['Punky','Bum','Knife']}
+        ]
+        
     }),
 
     methods: {
@@ -199,4 +214,9 @@ import datos from "../assets/json/punkys.json";
 
 .border_radius_a
     border-radius:15px !important
+
+.v-input--selection-controls 
+    margin-top: 0px !important
+    padding-top: 0px !important
+
 </style>

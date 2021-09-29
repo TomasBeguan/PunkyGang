@@ -4,42 +4,49 @@
       "id":"001",
       "nombre":"Billy",
       "url":"https://davinci.gallery/view/0xbf37069f83f63795232baa15d6dbd919d3e2d62b",
-      "img":"https://davinci.gallery/uploads/thumbs/QmWHYybd6itfzpNHS66BDABP32B7grRajgE2sdNpZpwG3W"
+      "img":"https://davinci.gallery/uploads/thumbs/QmWHYybd6itfzpNHS66BDABP32B7grRajgE2sdNpZpwG3W",
+      "skin":"Pink"
    },
    {
       "id":"002",
       "nombre":"Henry",
       "url":"https://davinci.gallery/view/0x63c198d39f46fce64fe3499699d778dcb18e6af1",
-      "img":"https://davinci.gallery/uploads/thumbs/Qma3FPrcohsRfMoaLFwrmd2gzxevosA2YemgxdUcBFvbZv"
+      "img":"https://davinci.gallery/uploads/thumbs/Qma3FPrcohsRfMoaLFwrmd2gzxevosA2YemgxdUcBFvbZv",
+      "skin":"Blue"
    },
    {
       "id":"003",
       "nombre":"Gaby",
       "url":"https://davinci.gallery/view/0xee20d696ea8e0b64465039334b9f09395932508c",
-      "img":"https://davinci.gallery/uploads/thumbs/QmfECenUYV3UuppAkuQndG5m2gipvujGGXtJzRQDpBQ57b"
+      "img":"https://davinci.gallery/uploads/thumbs/QmfECenUYV3UuppAkuQndG5m2gipvujGGXtJzRQDpBQ57b",
+      "skin":"Almond"
    },
    {
       "id":"004",
       "nombre":"Nikki",
       "url":"https://davinci.gallery/view/0x3b4314dc30696d990f9b203d499916d994dcd368",
-      "img":"https://davinci.gallery/uploads/thumbs/QmR84VWJs1HqKx7rxZgcTaNxT8CMbNwkMVqrrqHnjodbfV"
+      "img":"https://davinci.gallery/uploads/thumbs/QmR84VWJs1HqKx7rxZgcTaNxT8CMbNwkMVqrrqHnjodbfV",
+      "skin":"Porcelain"
    },
    {
       "id":"005",
       "nombre":"Sophia",
       "url":"https://davinci.gallery/view/0xd3a3ae323c4505544b249d5e53071d96e2adb568",
-      "img":"https://davinci.gallery/uploads/thumbs/QmZz7anyuvXaSD97pyqUi528GvvrZvwN88oiv47J4t8ogG"
+      "img":"https://davinci.gallery/uploads/thumbs/QmZz7anyuvXaSD97pyqUi528GvvrZvwN88oiv47J4t8ogG",
+      "skin":"Honey"
     },
     {
         "id":"006",
         "nombre":"Quim",
         "url":"https://davinci.gallery/view/0x2c67c0b1626b8cb86ecda5daee6bc6347437f671",
-        "img":"https://davinci.gallery/uploads/thumbs/QmU36PbeXqf6DY2rn2PwL45Ctk6sJCw5vR9MYXqK6n8DKM"
+        "img":"https://davinci.gallery/uploads/thumbs/QmU36PbeXqf6DY2rn2PwL45Ctk6sJCw5vR9MYXqK6n8DKM",
+        "skin":"Redish"
      },
      {
         "id":"007",
         "nombre":"Gemini",
         "url":"https://davinci.gallery/view/0xd1346d17917a90a9f9156691c4c6f35439ac90cf",
-        "img":"https://davinci.gallery/uploads/thumbs/Qmc2D4PQ44tujLvYVerCjMBRzXiKU6zADjirPGixvceTUo"
+        "img":"https://davinci.gallery/uploads/thumbs/Qmc2D4PQ44tujLvYVerCjMBRzXiKU6zADjirPGixvceTUo",
+        "skin":"Sand"
      }
 ]
