@@ -1,8 +1,9 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
+      v-model="drawer"
       app
-      permanent
+      
     >
     <v-card>
       <v-card-title>
@@ -35,12 +36,13 @@
 
     <v-app-bar app>
       
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>PUNKY GANG</v-toolbar-title>
 
       <v-text-field
-        label="Prepend inner"
-        prepend-inner-icon="mdi-map-marker"
+        label="Search your Punky"
+        prepend-inner-icon="mdi-magnify"
       ></v-text-field>
 
 
@@ -53,7 +55,13 @@
               v-bind="attrs"
               v-on="on"
             >
-              Dropdown
+              Rarity: High to Low
+              <v-icon
+                right
+                dark
+              >
+                mdi-chevron-down
+              </v-icon>
             </v-btn>
           </template>
           <v-list>
@@ -101,11 +109,12 @@ export default {
   },
 
   data: () => ({
+    drawer: null,
     items: [
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' },
+        { title: 'Rarity: High to Low' },
+        { title: 'Rarity: Low to High' },
+        { title: 'Number: High to Low' },
+        { title: 'Number: Low to High' },
       ],
   }),
 };
