@@ -135,7 +135,8 @@
 
 <script>
 
-import datos from "../assets/json/punkys.json";
+//import datos from "../assets/json/punkys.json";
+import datos from "../assets/json/punkyGang.json";
 
   export default {
     name: 'Main',
