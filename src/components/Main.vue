@@ -15,44 +15,37 @@
         </v-card>
         <v-expansion-panels>
           <v-expansion-panel
-            v-for="value in attributes"
-            :key="value.DocID"  
+
           >
-              <v-expansion-panel-header>
-                {{value}}
-              </v-expansion-panel-header>
+              <v-expansion-panel-header>Skin</v-expansion-panel-header>
               <v-expansion-panel-content>
-                <v-checkbox
-                    v-for="attribute in attributes"
-                    :key="attribute.DocID"
-                    v-model="selected"
-                    :label=attribute
-                    :value=attribute
-                >
-                </v-checkbox>
+              <v-checkbox v-model="selected_skin" label="Red" value="Red" v-on:click="checkboxFilter"> </v-checkbox>
+              <v-checkbox v-model="selected_skin" label="Almond" value="Almond" v-on:click="checkboxFilter"></v-checkbox>
+              <v-checkbox v-model="selected_skin" label="Porcelain" value="Porcelain" v-on:click="checkboxFilter"></v-checkbox>
+              <v-checkbox v-model="selected_skin" label="Expresso" value="Expresso" v-on:click="checkboxFilter"></v-checkbox>
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
+          <p>{{selected_skin}}</p>
         </v-navigation-drawer>
         <!-- NAVIGATION DRAWER -->
 
         <!-- APP BAR -->
-            <v-app-bar app>
+            <v-app-bar app class="navbar">
             
-          <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+          <v-app-bar-nav-icon @click="drawer = !drawer" dark></v-app-bar-nav-icon>
 
-          <v-toolbar-title>PUNKY GANG</v-toolbar-title>
+          <v-toolbar-title class="hidden-md-and-down logoPunky" dark>PUNKY GANG</v-toolbar-title>
 
           <div class="text-center">
-            <v-menu offset-y>
+            <v-menu offset-y class="btnRarity" transition="slide-x-transition">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="primary"
-                  dark
                   v-bind="attrs"
                   v-on="on"
+                  class="btnRarity"
                 >
-                  Rarity: High to Low
+                  {{org}}
                   <v-icon
                     right
                     dark
@@ -62,24 +55,19 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item
-                  v-for="(item, index) in items"
-                  :key="index"
-                  link
-                >
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item>
+                <v-list-item link ><v-list-item-title v-on:click="cambiarOrg('rhtl')">Rarity: High to Low</v-list-item-title></v-list-item>
+                <v-list-item link ><v-list-item-title v-on:click="cambiarOrg('nhtl')">Number: High to Low</v-list-item-title></v-list-item>
               </v-list>
             </v-menu>
           </div>
 
 
           <v-btn
-          rounded
-          color="primary"
           dark
+          rounded
           target="_blank"
           href="https://davinci.gallery/artist/punkygang"
+          class="btnDavinci"
           >
             Davinci
           </v-btn>
@@ -90,17 +78,19 @@
     
         <div class="buscador_div">
             <v-text-field
+                color="deep-purple"
                 v-model="search"
                 label="Search your Punky"
                 solo
                 clearable
                 prepend-inner-icon="mdi-magnify"
-                class=""
+                class="textField"
+                rounded
             ></v-text-field>
         </div>
     
     <div
-    v-for="item in filteredList" :key="item.DocID"  
+    v-for="item in filteredList" v-bind:key="item.id"  
     class="card_punky"
     >
     <v-card
@@ -118,12 +108,12 @@
       ></v-img>
 
       <h1
-      class="text-center"
+      class="text-center cardID"
       >
       #{{item.id}}
       </h1>
 
-      <h2 class="text-center">
+      <h2 class="text-center cardName">
         {{ item.nombre }}
       </h2>
 
@@ -146,29 +136,31 @@ import datos from "../assets/json/punkyGang.json";
     }, 
 
     data: () => ({
+        org: 'Number: High to Low',
+        orgID: 'item.DocID',
+        selected_skin: [],
         drawer: null,
         search: '',
         attributes:{
             Skin: 'Skin',
-            Hair: 'Hair',
-            HairColor: 'Hair Color',
-            Eyes: 'Eyes',
-            RightEar: 'Right Ear',
-            LeftEar: 'Left Ear',
-            Mouth: 'Mouth',
-            Background: 'Background',
-            Accessory: 'Accessory',
-            Extra: 'Extra',
         },
-        checks: [
-            {Skin:['red', 'white',]},
-            {Hair:['Punky','Bum','Knife']}
-        ]
         
     }),
 
     methods: {
-      
+      checkboxFilter() {
+        console.log(this.selected_skin.slice())
+        console.log(this.selected_skin)
+      },
+      cambiarOrg(value){
+        console.log(value)
+        if (value == "rhtl"){
+          this.org = "Rarity: High to Low"
+        }
+        if (value == "nhtl"){
+          this.org = "Number: High to Low"
+        }
+      }
     },
 
     computed: {
@@ -177,27 +169,56 @@ import datos from "../assets/json/punkyGang.json";
         return item;
       })
     },
-    filteredList2() {
-      return this.items.filter(item => {
-        return item.nombre.toLowerCase().includes(this.search.toLowerCase())
-      })
-    },
+    
     filteredList() {
         const value= this.search.charAt(0).toUpperCase() + this.search.slice(1);
         return this.items.filter(function(item){
           return item.nombre.indexOf(value) > -1 ||
                  item.id.indexOf(value) > -1 ||
-                 item.id.indexOf(value) > -1
+                 item.id.indexOf(value) > -1                
         })
-    }
+    },
+
+    checkF() {
+      return this.items.filter(function(item){
+        return item;
+      })
+    }, 
+
+
   }
 
   }
+
 </script>
 
 <style lang="sass">
+
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap')
+
+html, body
+    font-family: 'Comfortaa', cursive !important
+
+.cardID
+    font-family: 'Comfortaa', cursive !important
+    font-weight: 700 !important
+    color: #555555
+    font-size: 30px
+    margin: 20px 0px 5px 0px
+.cardName
+    font-family: 'Comfortaa', cursive !important
+    font-weight: 400
+    color: #555555
+    font-size: 30px
+    margin:0px 0px 10px 0px
+
 .v-main__wrap
     background-color: #DF57FF
+.v-application 
+    line-height: 1 !important
+
+
+    
 .container_cards
     display: flex
     flex-wrap: wrap
@@ -206,18 +227,69 @@ import datos from "../assets/json/punkyGang.json";
     max-width: 300px
     margin: 10px
     cursor: pointer
+    box-shadow:2px 2px 5px rgba(0,0,0,0.15)
+    border-radius:15px !important
+    transition: all 0.2s cubic-bezier(.56,.14,.28,.76)
+.card_punky:hover
+    box-shadow:5px 5px 15px rgba(0,0,0,0.45)
+    transform: scale(1.05)
+
+
 .card_inside
     padding: 10px
 
 .buscador_div
     width:100%
+    margin-bottom:-15px
+    margin-top:15px
+    padding:15px
 
 
 .border_radius_a
     border-radius:15px !important
 
+.textField
+  font-family: 'Comfortaa', cursive !important
+  font-weight: 800 !important
+  color: #C9C9C9
+  font-size: 35px
+
 .v-input--selection-controls 
     margin-top: 0px !important
     padding-top: 0px !important
 
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot
+   box-shadow:         inset 5px 5px 10px rgba(0,0,0,0.20) !important
+
+
+.text-center
+  margin-left: auto
+.btnRarity
+  background-color: #fff !important
+  border: solid 2px #fff !important
+  font-family: 'Comfortaa', cursive !important
+  font-weight: 500 !important
+  border-radius: 15px !important
+  color: #494949 !important
+.btnDavinci
+  margin-left: 10px
+  background: linear-gradient(90deg, rgba(4,177,231,1) 0%, rgba(100,247,191,1) 100%) !important
+  border: solid 2px #fff !important
+  font-family: 'Comfortaa', cursive !important
+  font-weight: 500 !important
+  color: #fff
+
+.v-btn
+  text-transform: none !important
+  letter-spacing: 0em !important
+
+.navbar
+  background-color: #5644C7 !important
+  box-shadow: none !important
+
+
+.logoPunky
+  color: #fff !important
+  font-family: 'Comfortaa', cursive !important
+  font-weight: 800 !important
 </style>
