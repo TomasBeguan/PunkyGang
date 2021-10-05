@@ -1,195 +1,249 @@
 <template>
-
   <v-container class="container_cards" id="app">
+    <!-- NAVIGATION DRAWER -->
+    <v-navigation-drawer v-model="drawer" app>
+      <v-card>
+        <v-card-title>
+          Filters
+        </v-card-title>
+      </v-card>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Skin</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-checkbox
+              v-model="selected_skin"
+              v-for="(skin, index) in skinCheckbox"
+              :label="skin.label"
+              :value="skin.value"
+              @change="checkboxFilter"
+              :key="index"
+            >
+            </v-checkbox>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Hair</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-checkbox
+              v-model="selected_hair"
+              v-for="(hair, index) in hairCheckbox"
+              :label="hair.label"
+              :value="hair.value"
+              @change="checkboxFilter"
+              :key="index"
+            >
+            </v-checkbox>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <p>{{ selected_skin }}</p>
+    </v-navigation-drawer>
+    <!-- NAVIGATION DRAWER -->
 
-        <!-- NAVIGATION DRAWER -->
-        <v-navigation-drawer
-          v-model="drawer"
-          app
-          
-        >
-        <v-card>
-          <v-card-title>
-            Filters
-          </v-card-title>
-        </v-card>
-        <v-expansion-panels>
-          <v-expansion-panel
+    <!-- APP BAR -->
+    <v-app-bar app class="navbar">
+      <v-app-bar-nav-icon @click="drawer = !drawer" dark></v-app-bar-nav-icon>
 
-          >
-              <v-expansion-panel-header>Skin</v-expansion-panel-header>
-              <v-expansion-panel-content>
-              <v-checkbox v-model="selected_skin" label="Red" value="Red" v-on:click="checkboxFilter"> </v-checkbox>
-              <v-checkbox v-model="selected_skin" label="Almond" value="Almond" v-on:click="checkboxFilter"></v-checkbox>
-              <v-checkbox v-model="selected_skin" label="Porcelain" value="Porcelain" v-on:click="checkboxFilter"></v-checkbox>
-              <v-checkbox v-model="selected_skin" label="Expresso" value="Expresso" v-on:click="checkboxFilter"></v-checkbox>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
-          <p>{{selected_skin}}</p>
-        </v-navigation-drawer>
-        <!-- NAVIGATION DRAWER -->
-
-        <!-- APP BAR -->
-            <v-app-bar app class="navbar">
-            
-          <v-app-bar-nav-icon @click="drawer = !drawer" dark></v-app-bar-nav-icon>
-
-          <v-toolbar-title class="hidden-md-and-down logoPunky" dark>PUNKY GANG</v-toolbar-title>
-
-          <div class="text-center">
-            <v-menu offset-y class="btnRarity" transition="slide-x-transition">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-bind="attrs"
-                  v-on="on"
-                  class="btnRarity"
-                >
-                  {{org}}
-                  <v-icon
-                    right
-                    dark
-                  >
-                    mdi-chevron-down
-                  </v-icon>
-                </v-btn>
-              </template>
-              <v-list>
-                <v-list-item link ><v-list-item-title v-on:click="cambiarOrg('rhtl')">Rarity: High to Low</v-list-item-title></v-list-item>
-                <v-list-item link ><v-list-item-title v-on:click="cambiarOrg('nhtl')">Number: High to Low</v-list-item-title></v-list-item>
-              </v-list>
-            </v-menu>
-          </div>
-
-
-          <v-btn
-          dark
-          rounded
-          target="_blank"
-          href="https://davinci.gallery/artist/punkygang"
-          class="btnDavinci"
-          >
-            Davinci
-          </v-btn>
-
-
-        </v-app-bar>
-        <!-- NAVIGATION DRAWER -->
-    
-        <div class="buscador_div">
-            <v-text-field
-                color="deep-purple"
-                v-model="search"
-                label="Search your Punky"
-                solo
-                clearable
-                prepend-inner-icon="mdi-magnify"
-                class="textField"
-                rounded
-            ></v-text-field>
-        </div>
-    
-    <div
-    v-for="item in filteredList" v-bind:key="item.id"  
-    class="card_punky"
-    >
-    <v-card
-    class="card_inside border_radius_a"
-    max-width="300"
-    v-bind:href="item.url" 
-    target="_blank"
-    >
-
-      <v-img
-        height="250"
-        width="250"
-        :src=item.img
-        class="border_radius_a"
-      ></v-img>
-
-      <h1
-      class="text-center cardID"
+      <v-toolbar-title class="hidden-md-and-down logoPunky" dark
+        >PUNKY GANG</v-toolbar-title
       >
-      #{{item.id}}
-      </h1>
 
-      <h2 class="text-center cardName">
-        {{ item.nombre }}
-      </h2>
+      <div class="text-center">
+        <v-menu offset-y class="btnRarity" transition="slide-x-transition">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn v-bind="attrs" v-on="on" class="btnRarity">
+              {{ org }}
+              <v-icon right dark>
+                mdi-chevron-down
+              </v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item link
+              ><v-list-item-title v-on:click="cambiarOrg('rhtl')"
+                >Rarity: High to Low</v-list-item-title
+              ></v-list-item
+            >
+            <v-list-item link
+              ><v-list-item-title v-on:click="cambiarOrg('nhtl')"
+                >Number: High to Low</v-list-item-title
+              ></v-list-item
+            >
+          </v-list>
+        </v-menu>
+      </div>
 
+      <v-btn
+        dark
+        rounded
+        target="_blank"
+        href="https://davinci.gallery/artist/punkygang"
+        class="btnDavinci"
+      >
+        Davinci
+      </v-btn>
+    </v-app-bar>
+    <!-- NAVIGATION DRAWER -->
 
-    </v-card>
+    <div class="buscador_div">
+      <v-text-field
+        color="deep-purple"
+        v-model="search"
+        label="Search your Punky"
+        solo
+        clearable
+        prepend-inner-icon="mdi-magnify"
+        class="textField"
+        rounded
+      ></v-text-field>
+    </div>
+
+    <div v-for="item in filteredItems" v-bind:key="item.id" class="card_punky">
+      <v-card
+        class="card_inside border_radius_a"
+        max-width="300"
+        v-bind:href="item.url"
+        target="_blank"
+      >
+        <v-img
+          height="250"
+          width="250"
+          :src="item.img"
+          class="border_radius_a"
+        ></v-img>
+
+        <h1 class="text-center cardID">#{{ item.id }}</h1>
+
+        <h2 class="text-center cardName">
+          {{ item.nombre }}
+        </h2>
+      </v-card>
     </div>
   </v-container>
 </template>
 
 <script>
-
 //import datos from "../assets/json/punkys.json";
 import datos from "../assets/json/punkyGang.json";
 
-  export default {
-    name: 'Main',
+export default {
+  name: "Main",
 
-    props: {
-    msg: String
-    }, 
+  props: {
+    msg: String,
+  },
 
-    data: () => ({
-        org: 'Number: High to Low',
-        orgID: 'item.DocID',
-        selected_skin: [],
-        drawer: null,
-        search: '',
-        attributes:{
-            Skin: 'Skin',
-        },
-        
-    }),
+  data: () => ({
+    org: "Number: High to Low",
+    orgID: "item.DocID",
+    selected_skin: [],
+    selected_hair: [],
+    drawer: null,
+    search: "",
+    attributes: {
+      Skin: "Skin",
+    },
+    filteredItems: [],
+    originalItems: [],
+    skinCheckbox: [],
+    hairCheckbox: [],
+  }),
 
-    methods: {
-      checkboxFilter() {
-        console.log(this.selected_skin.slice())
-        console.log(this.selected_skin)
-      },
-      cambiarOrg(value){
-        console.log(value)
-        if (value == "rhtl"){
-          this.org = "Rarity: High to Low"
-        }
-        if (value == "nhtl"){
-          this.org = "Number: High to Low"
-        }
+  methods: {
+    cambiarOrg(value) {
+      console.log(value);
+      if (value == "rhtl") {
+        this.org = "Rarity: High to Low";
+        this.filteredItems = this.filteredItems.sort(function(a, b) {
+          return a.id - b.id;
+        });
+      }
+      if (value == "nhtl") {
+        this.org = "Number: High to Low";
+        this.filteredItems = this.filteredItems.sort(function(a, b) {
+          return b.nombre - a.nombre;
+        });
       }
     },
+    checkboxFilter() {
+      this.filteredItems = this.originalItems;
+      this.filteredItems = this.filteredItems.filter((item) => {
+        if (!this.selected_skin.length && !this.selected_hair.length) {
+          return this.originalItems;
+        }
 
-    computed: {
-    items() {
-      return datos.map((item) => {
-        return item;
-      })
+        if (
+          this.selected_skin.length &&
+          this.selected_skin.includes(item.skin) &&
+          this.selected_hair.length &&
+          this.selected_hair.includes(item.hair)
+        ) {
+          return item;
+        }
+        if (
+          !this.selected_skin.length &&
+          this.selected_hair.includes(item.hair)
+        ) {
+          return item;
+        }
+        if (
+          !this.selected_hair.length &&
+          this.selected_skin.includes(item.skin)
+        ) {
+          return item;
+        }
+      });
     },
-    
-    filteredList() {
-        const value= this.search.charAt(0).toUpperCase() + this.search.slice(1);
-        return this.items.filter(function(item){
-          return item.nombre.indexOf(value) > -1 ||
-                 item.id.indexOf(value) > -1 ||
-                 item.id.indexOf(value) > -1                
-        })
-    },
+  },
+  mounted() {
+    this.filteredItems = datos.map((item) => {
+      return item;
+    });
+    const value = this.search.charAt(0).toUpperCase() + this.search.slice(1);
+    this.filteredItems.filter(function(item) {
+      return (
+        item.nombre.indexOf(value) > -1 ||
+        item.id.indexOf(value) > -1 ||
+        item.id.indexOf(value) > -1
+      );
+    });
+    //making copy of items to be used in checkbox filter
+    this.originalItems = this.filteredItems;
 
+    //hair checkbox filter
+    let haircbData = this.originalItems.map((item) => {
+      return item.hair;
+    });
+    //skin checkbox filter
+    let skincbData = this.originalItems.map((item) => {
+      return item.skin;
+    });
+
+    let hairFilteredCheckboxData = [...new Set(haircbData)];
+    let skinFilteredCheckboxData = [...new Set(skincbData)];
+    this.skinCheckbox = skinFilteredCheckboxData.map((item) => {
+      return {
+        label: item,
+        value: item,
+      };
+    });
+    this.hairCheckbox = hairFilteredCheckboxData.map((item) => {
+      return {
+        label: item,
+        value: item,
+      };
+    });
+  },
+
+  computed: {
     checkF() {
-      return this.items.filter(function(item){
+      return this.filteredItems.filter(function(item) {
         return item;
-      })
-    }, 
-
-
-  }
-
-  }
-
+      });
+    },
+  },
+};
 </script>
 
 <style lang="sass">
@@ -214,11 +268,11 @@ html, body
 
 .v-main__wrap
     background-color: #DF57FF
-.v-application 
+.v-application
     line-height: 1 !important
 
 
-    
+
 .container_cards
     display: flex
     flex-wrap: wrap
@@ -254,7 +308,7 @@ html, body
   color: #C9C9C9
   font-size: 35px
 
-.v-input--selection-controls 
+.v-input--selection-controls
     margin-top: 0px !important
     padding-top: 0px !important
 
