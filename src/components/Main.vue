@@ -9,7 +9,7 @@
       </v-card>
       <v-expansion-panels>
         <v-expansion-panel v-for="(cb, cbindex) in checkboxes" :key="cb.title">
-          <v-expansion-panel-header>{{ cb.title }}</v-expansion-panel-header>
+          <v-expansion-panel-header>{{ cb.titleLB }}</v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-checkbox
               v-model="cb.selected"
@@ -129,10 +129,6 @@ export default {
     filteredItems: [],
     originalItems: [],
     checkboxes: [],
-    titulos:[
-      "Hair",
-      "Skin"
-    ],
   }),
   watch: {
     search(value) {
@@ -190,6 +186,14 @@ export default {
               item.eyes.toLowerCase().trim()
             ) &&
               this.checkboxes[index].title == "eyes") ||
+            (this.checkboxes[index].selected.includes(
+              item.rightEar.toLowerCase().trim()
+            ) &&
+              this.checkboxes[index].title == "rightEar") ||
+            (this.checkboxes[index].selected.includes(
+              item.leftEar.toLowerCase().trim()
+            ) &&
+              this.checkboxes[index].title == "leftEar") ||
             (this.checkboxes[index].selected.includes(
               item.background.toLowerCase().trim()
             ) &&
@@ -258,6 +262,9 @@ export default {
 
       this.checkboxes.push({
         title: checkboxCategory,
+        titleLB: checkboxCategory.replace(/([A-Z])/g, ' $1')
+         // uppercase the first character
+         .replace(/^./, function(str){ return str.toUpperCase(); }),
         checkboxList: CheckboxData,
         selected: [],
       });
@@ -283,6 +290,8 @@ export default {
     this.createCheckBox("skin");
     this.createCheckBox("hairColor");
     this.createCheckBox("eyes");
+    this.createCheckBox("rightEar");
+    this.createCheckBox("leftEar");
     this.createCheckBox("background");
     this.createCheckBox("accessory");
     this.createCheckBox("extra");
