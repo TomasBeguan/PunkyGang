@@ -7,162 +7,21 @@
           Filters
         </v-card-title>
       </v-card>
-
-
-
       <v-expansion-panels>
-        <v-expansion-panel>
-          <v-expansion-panel-header>Skin</v-expansion-panel-header>
+        <v-expansion-panel v-for="(cb, cbindex) in checkboxes" :key="cb.title">
+          <v-expansion-panel-header>{{ cb.title }}</v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-checkbox
-              v-model="selected_skin"
-              v-for="(skin, index) in skinCheckbox"
-              :label="skin.label"
-              :value="skin.value"
-              @change="checkboxFilter"
+              v-model="cb.selected"
+              v-for="(chkbox, index) in cb.checkboxList"
+              :label="chkbox.label + ` (${chkbox.number})`"
+              :value="chkbox.value"
+              @change="checkboxFilter(cbindex)"
               :key="index"
             >
             </v-checkbox>
           </v-expansion-panel-content>
         </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header>Hair</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-checkbox
-              v-model="selected_hair"
-              v-for="(hair, index) in hairCheckbox"
-              :label="hair.label"
-              :value="hair.value"
-              @change="checkboxFilter"
-              :key="index"
-            >
-            </v-checkbox>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header>Hair Color</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-checkbox
-              v-model="selected_hairColor"
-              v-for="(hairColor, index) in hairColorCheckbox"
-              :label="hairColor.label"
-              :value="hairColor.value"
-              @change="checkboxFilter"
-              :key="index"
-            >
-            </v-checkbox>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-        
-        <v-expansion-panel>
-          <v-expansion-panel-header>Eyes</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-checkbox
-              v-model="selected_eyes"
-              v-for="(eyes, index) in eyesCheckbox"
-              :label="eyes.label"
-              :value="eyes.value"
-              @change="checkboxFilter"
-              :key="index"
-            >
-            </v-checkbox>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header>Right Ear</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-checkbox
-              v-model="selected_rightEar"
-              v-for="(rightEar, index) in rightEarCheckbox"
-              :label="rightEar.label"
-              :value="rightEar.value"
-              @change="checkboxFilter"
-              :key="index"
-            >
-            </v-checkbox>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header>Left Ear</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-checkbox
-              v-model="selected_leftEar"
-              v-for="(leftEar, index) in leftEarCheckbox"
-              :label="leftEar.label"
-              :value="leftEar.value"
-              @change="checkboxFilter"
-              :key="index"
-            >
-            </v-checkbox>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header>Mouth</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-checkbox
-              v-model="selected_mouth"
-              v-for="(mouth, index) in mouthCheckbox"
-              :label="mouth.label"
-              :value="mouth.value"
-              @change="checkboxFilter"
-              :key="index"
-            >
-            </v-checkbox>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header>Background</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-checkbox
-              v-model="selected_background"
-              v-for="(background, index) in backgroundCheckbox"
-              :label="background.label"
-              :value="background.value"
-              @change="checkboxFilter"
-              :key="index"
-            >
-            </v-checkbox>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header>Accessory</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-checkbox
-              v-model="selected_accessory"
-              v-for="(accessory, index) in accessoryCheckbox"
-              :label="accessory.label"
-              :value="accessory.value"
-              @change="checkboxFilter"
-              :key="index"
-            >
-            </v-checkbox>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-        <v-expansion-panel>
-          <v-expansion-panel-header>Extra</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-checkbox
-              v-model="selected_extra"
-              v-for="(extra, index) in extraCheckbox"
-              :label="extra.label"
-              :value="extra.value"
-              @change="checkboxFilter"
-              :key="index"
-            >
-            </v-checkbox>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-
-
       </v-expansion-panels>
     </v-navigation-drawer>
     <!-- NAVIGATION DRAWER -->
@@ -189,19 +48,13 @@
             <v-list-item link
               ><v-list-item-title v-on:click="cambiarOrg('rhtl')"
                 >Rarity: High to Low</v-list-item-title
-              ></v-list-item>
-              <v-list-item link
-              ><v-list-item-title v-on:click="cambiarOrg('rlth')"
-                >Rarity: Low to High</v-list-item-title
-              ></v-list-item>
+              ></v-list-item
+            >
             <v-list-item link
-              ><v-list-item-title v-on:click="cambiarOrg('ilth')"
-                >ID: Low to High</v-list-item-title
-              ></v-list-item>
-              <v-list-item link
-              ><v-list-item-title v-on:click="cambiarOrg('ihtl')"
-                >ID: High to Low</v-list-item-title
-              ></v-list-item>
+              ><v-list-item-title v-on:click="cambiarOrg('nhtl')"
+                >Number: High to Low</v-list-item-title
+              ></v-list-item
+            >
           </v-list>
         </v-menu>
       </div>
@@ -250,28 +103,13 @@
         <h2 class="text-center cardName">
           {{ item.nombre }}
         </h2>
-
-        <!-- Rating 
-        <v-rating
-          dense
-          empty-icon="mdi-star-outline"
-          full-icon="mdi-star"
-          half-icon="mdi-star-half-full"
-          half-increments
-          length="5"
-          size="35"
-          :value=stars
-        ></v-rating>
-         Rating -->
       </v-card>
     </div>
   </v-container>
 </template>
 
 <script>
-//import datos from "../assets/json/punkys.json";
 import datos from "../assets/json/punkyGang.json";
-
 export default {
   name: "Main",
 
@@ -280,19 +118,9 @@ export default {
   },
 
   data: () => ({
+    uniqueId: null,
     org: "Number: High to Low",
     orgID: "item.DocID",
-    stars: "1.5",
-    selected_skin: [],
-    selected_hair: [],
-    selected_hairColor: [],
-    selected_eyes: [],
-    selected_rightEar: [],
-    selected_leftEar: [],
-    selected_mouth: [],
-    selected_background: [],
-    selected_accessory: [],
-    selected_extra: [],
     drawer: null,
     search: "",
     attributes: {
@@ -300,73 +128,138 @@ export default {
     },
     filteredItems: [],
     originalItems: [],
-    skinCheckbox: [],
-    hairCheckbox: [],
-    hairColorCheckbox: [],
-    eyesCheckbox: [],
-    rightEarCheckbox: [],
-    leftEarCheckbox: [],
-    mouthCheckbox: [],
-    backgroundCheckbox: [],
-    accessoryCheckbox: [],
-    extraCheckbox: [],
+    checkboxes: [],
+    titulos:[
+      "Hair",
+      "Skin"
+    ],
   }),
-
+  watch: {
+    search(value) {
+      value = value.toLowerCase();
+      this.filteredItems = this.originalItems;
+      this.filteredItems = this.filteredItems.filter((item) => {
+        if (
+          item.nombre.toLowerCase().includes(value) ||
+          item.id.toLowerCase().includes(value)
+        ) {
+          return item;
+        }
+      });
+    },
+  },
   methods: {
     cambiarOrg(value) {
-      console.log(value);
       if (value == "rhtl") {
         this.org = "Rarity: High to Low";
         this.filteredItems = this.filteredItems.sort(function(a, b) {
           return a.rarity - b.rarity;
         });
       }
-      if (value == "rlth") {
-        this.org = "Rarity: Low to High";
-        this.filteredItems = this.filteredItems.sort(function(a, b) {
-          return b.rarity - a.rarity;
-        });
-      }
-      if (value == "ilth") {
-        this.org = "ID: Low to High";
-        this.filteredItems = this.filteredItems.sort(function(a, b) {
-          return a.id - b.id;
-        });
-      }
-      if (value == "ihtl") {
-        this.org = "ID: High to Low";
+      if (value == "nhtl") {
+        this.org = "Number: High to Low";
         this.filteredItems = this.filteredItems.sort(function(a, b) {
           return b.id - a.id;
         });
       }
     },
     checkboxFilter() {
-      this.filteredItems = this.originalItems;
-      this.filteredItems = this.filteredItems.filter((item) => {
-        if (!this.selected_skin.length && !this.selected_hair.length) {
-          return this.originalItems;
+      const isEmpty = this.checkboxes.every((item) => {
+        return !item.selected.length;
+      });
+
+      if (isEmpty) {
+        return (this.filteredItems = [...this.originalItems]);
+      }
+      this.filteredItems = this.originalItems.filter((item) => {
+        for (let index = 0; index < this.checkboxes.length; index++) {
+          if (
+            (this.checkboxes[index].selected.includes(
+              item.skin.toLowerCase().trim()
+            ) &&
+              this.checkboxes[index].title == "skin") ||
+            (this.checkboxes[index].selected.includes(
+              item.hair.toLowerCase().trim()
+            ) &&
+              this.checkboxes[index].title == "hair") ||
+            (this.checkboxes[index].selected.includes(
+              item.hairColor.toLowerCase().trim()
+            ) &&
+              this.checkboxes[index].title == "hairColor") ||
+            (this.checkboxes[index].selected.includes(
+              item.eyes.toLowerCase().trim()
+            ) &&
+              this.checkboxes[index].title == "eyes") ||
+            (this.checkboxes[index].selected.includes(
+              item.background.toLowerCase().trim()
+            ) &&
+              this.checkboxes[index].title == "background") ||
+            (this.checkboxes[index].selected.includes(
+              item.accessory.toLowerCase().trim()
+            ) &&
+              this.checkboxes[index].title == "accessory") ||
+            (this.checkboxes[index].selected.includes(
+              item.extra.toLowerCase().trim()
+            ) &&
+              this.checkboxes[index].title == "extra")
+          ) {
+            return item;
+          }
+        }
+      });
+    },
+    createCheckBox(checkboxCategory) {
+      let newarray = this.originalItems;
+
+      let categoryArray = newarray.map((item) => {
+        if (Object.keys(item).includes(checkboxCategory)) {
+          return {
+            [checkboxCategory]: item[checkboxCategory],
+          };
+        }
+      });
+
+      let countData = [];
+      categoryArray.reduce((acc, curr) => {
+        const str = JSON.stringify(curr);
+
+        acc[str] = (acc[str] || 0) + 1;
+
+        let foundIndex = countData.findIndex(
+          (item) =>
+            item.categoryName == checkboxCategory &&
+            item.value == curr[checkboxCategory]
+        );
+
+        if (foundIndex >= 0) {
+          countData.splice(foundIndex, 1, {
+            categoryName: checkboxCategory,
+            value: curr[checkboxCategory],
+            number: countData[foundIndex].number + 1,
+          });
+        } else if (foundIndex < 0) {
+          countData.push({
+            categoryName: checkboxCategory,
+            value: curr[checkboxCategory],
+            number: 1,
+          });
         }
 
-        if (
-          this.selected_skin.length &&
-          this.selected_skin.includes(item.skin) &&
-          this.selected_hair.length &&
-          this.selected_hair.includes(item.hair)
-        ) {
-          return item;
-        }
-        if (
-          !this.selected_skin.length &&
-          this.selected_hair.includes(item.hair)
-        ) {
-          return item;
-        }
-        if (
-          !this.selected_hair.length &&
-          this.selected_skin.includes(item.skin)
-        ) {
-          return item;
-        }
+        return acc;
+      }, []);
+
+      let CheckboxData = countData.map((item) => {
+        return {
+          label: item.value,
+          value: item.value.toLowerCase().trim(),
+          number: item.number,
+        };
+      });
+
+      this.checkboxes.push({
+        title: checkboxCategory,
+        checkboxList: CheckboxData,
+        selected: [],
       });
     },
   },
@@ -385,120 +278,14 @@ export default {
     //making copy of items to be used in checkbox filter
     this.originalItems = this.filteredItems;
 
-
-    //skin checkbox filter
-    let skincbData = this.originalItems.map((item) => {
-      return item.skin;
-    });
-    //hair checkbox filter
-    let haircbData = this.originalItems.map((item) => {
-      return item.hair;
-    });
-    //hairColor checkbox filter
-    let hairColorcbData = this.originalItems.map((item) => {
-      return item.hairColor;
-    });
-    //eyes checkbox filter
-    let eyescbData = this.originalItems.map((item) => {
-      return item.eyes;
-    });
-    //rightEar checkbox filter
-    let rightEarcbData = this.originalItems.map((item) => {
-      return item.rightEar;
-    });
-    //leftEar checkbox filter
-    let leftEarcbData = this.originalItems.map((item) => {
-      return item.leftEar;
-    });
-    //mouth checkbox filter
-    let mouthcbData = this.originalItems.map((item) => {
-      return item.mouth;
-    });
-    //background checkbox filter
-    let backgroundcbData = this.originalItems.map((item) => {
-      return item.background;
-    });
-    //accessory checkbox filter
-    let accessorycbData = this.originalItems.map((item) => {
-      return item.accessory;
-    });
-    //extra checkbox filter
-    let extracbData = this.originalItems.map((item) => {
-      return item.extra;
-    });
-    
-    let skinFilteredCheckboxData = [...new Set(skincbData)];
-    let hairFilteredCheckboxData = [...new Set(haircbData)];
-    let hairColorFilteredCheckboxData = [...new Set(hairColorcbData)];
-    let eyesFilteredCheckboxData = [...new Set(eyescbData)];
-    let rightEarFilteredCheckboxData = [...new Set(rightEarcbData)];
-    let leftEarFilteredCheckboxData = [...new Set(leftEarcbData)];
-    let mouthFilteredCheckboxData = [...new Set(mouthcbData)];
-    let backgroundFilteredCheckboxData = [...new Set(backgroundcbData)];
-    let accessoryFilteredCheckboxData = [...new Set(accessorycbData)];
-    let extraFilteredCheckboxData = [...new Set(extracbData)];
-
-    this.skinCheckbox = skinFilteredCheckboxData.map((item) => {
-      return {
-        label: item + " (6)",
-        value: item,
-      };
-    });
-    this.hairCheckbox = hairFilteredCheckboxData.map((item) => {
-      return {
-        label: item,
-        value: item,
-      };
-    });
-    this.hairColorCheckbox = hairColorFilteredCheckboxData.map((item) => {
-      return {
-        label: item,
-        value: item,
-      };
-    });
-    this.eyesCheckbox = eyesFilteredCheckboxData.map((item) => {
-      return {
-        label: item,
-        value: item,
-      };
-    });
-    this.rightEarCheckbox = rightEarFilteredCheckboxData.map((item) => {
-      return {
-        label: item,
-        value: item,
-      };
-    });
-    this.leftEarCheckbox = leftEarFilteredCheckboxData.map((item) => {
-      return {
-        label: item,
-        value: item,
-      };
-    });
-    this.mouthCheckbox = mouthFilteredCheckboxData.map((item) => {
-      return {
-        label: item,
-        value: item,
-      };
-    });
-    this.backgroundCheckbox = backgroundFilteredCheckboxData.map((item) => {
-      return {
-        label: item,
-        value: item,
-      };
-    });
-    this.accessoryCheckbox = accessoryFilteredCheckboxData.map((item) => {
-      return {
-        label: item,
-        value: item,
-      };
-    });
-    this.extraCheckbox = extraFilteredCheckboxData.map((item) => {
-      return {
-        label: item,
-        value: item,
-      };
-    });
-
+    //generate skin checkbox
+    this.createCheckBox("hair");
+    this.createCheckBox("skin");
+    this.createCheckBox("hairColor");
+    this.createCheckBox("eyes");
+    this.createCheckBox("background");
+    this.createCheckBox("accessory");
+    this.createCheckBox("extra");
   },
 
   computed: {
@@ -508,7 +295,6 @@ export default {
       });
     },
   },
-
 };
 </script>
 
