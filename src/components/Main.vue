@@ -94,11 +94,14 @@
       ></v-text-field>
     </div>
 
+
+    <!-- v-bind:href="item.url" -->
+
     <div v-for="item in filteredItems" v-bind:key="item.id" class="card_punky">
       <v-card
         class="card_inside border_radius_a"
         max-width="300"
-        v-bind:href="item.url"
+        v-on:click="openDialog(item)"
         target="_blank"
       >
         <v-img
@@ -114,11 +117,45 @@
           {{ item.nombre }}
         </h2>
 
+        <!--
         <p class="text-center cardRarity">
-          {{ item.rarity }}
+         Rarity Rank: {{ item.rarityRank }}
         </p>
+        -->
       </v-card>
     </div>
+
+
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          {{this.dialogID}}
+        </v-card-title>
+        <v-card-title class="text-h5 grey lighten-2">
+          {{this.dialogNombre}}
+        </v-card-title>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    
+
+
   </v-container>
 </template>
 
@@ -143,6 +180,12 @@ export default {
 
     mycolor:Math.round((Math.random()* (+2 + +10) + +1)),
 
+    dialog: false,
+    dialogID: "",
+    dialogNombre: "",
+    dialogURL: "",
+    dialogImg: "",
+
     filteredItems: [],
     originalItems: [],
     checkboxes: [],
@@ -162,6 +205,15 @@ export default {
     },
   },
   methods: {
+    openDialog(item){
+      console.log(item)
+      this.dialog = true
+      this.dialogID = item.id
+      this.dialogNombre = item.nombre
+      this.dialogURL = item.url
+      this.dialogImg = item.img
+    },
+
     cambiarOrg(value) {
       if (value == "newest") {
         this.org = "Newest";
@@ -321,7 +373,6 @@ export default {
     this.createCheckBox("extra");
 
 
-    console.log(this.mycolor)
     if(this.mycolor == 2){
       this.mycolor = "#9DFF56"
     }
@@ -355,8 +406,6 @@ export default {
     if(this.mycolor == 12){
       this.mycolor = "#FFCE57"
     }
-
-    console.log(this.filteredItems)
 
   },
 
@@ -406,7 +455,7 @@ html, body
     height: 100%
 .card_punky
     max-width: 300px
-    max-height: 397px
+    max-height: 365px
     margin: 10px
     cursor: pointer
     box-shadow:2px 2px 5px rgba(0,0,0,0.15)
@@ -507,6 +556,13 @@ html, body
   font-size: 10px !important
   height: 30px
 
+.cardRarity
+  font-family: 'Comfortaa', cursive !important
+  font-weight: 200 !important
+  font-size: 10px !important
+  position: absolute
+  bottom: -5px
+
 
 /* width */
 ::-webkit-scrollbar 
@@ -530,4 +586,5 @@ html, body
 @media (min-width: 0px)
 .container 
     max-width: 1900px !important
+
 </style>
