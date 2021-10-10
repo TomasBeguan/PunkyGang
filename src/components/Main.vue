@@ -1,15 +1,19 @@
 <template>
-  <v-container class="container_cards" id="app">
+  <v-container class="container_cards" v-bind:style="{ backgroundColor: this.mycolor}" id="app">
     <!-- NAVIGATION DRAWER -->
-    <v-navigation-drawer v-model="drawer" app>
-      <v-card>
-        <v-card-title>
-          Filters
-        </v-card-title>
-      </v-card>
-      <v-expansion-panels>
-        <v-expansion-panel v-for="(cb, cbindex) in checkboxes" :key="cb.title">
-          <v-expansion-panel-header>{{ cb.titleLB }}</v-expansion-panel-header>
+    <v-navigation-drawer v-model="drawer" app class="navigation_drawer" width="325">
+
+        <div class="filter_box">
+          <h3 class="filters_title">
+            <v-icon left dark>mdi-filter-variant</v-icon>
+            FILTER
+          </h3>
+          
+        </div>
+
+      <v-expansion-panels accordion flat>
+        <v-expansion-panel class="expansion_box" v-for="(cb, cbindex) in checkboxes" :key="cb.title">
+          <v-expansion-panel-header class="expansion_title">{{ cb.titleLB }}</v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-checkbox
               v-model="cb.selected"
@@ -18,6 +22,7 @@
               :value="chkbox.value"
               @change="checkboxFilter(cbindex)"
               :key="index"
+              class="checkboxes"
             >
             </v-checkbox>
           </v-expansion-panel-content>
@@ -46,13 +51,18 @@
           </template>
           <v-list>
             <v-list-item link
-              ><v-list-item-title v-on:click="cambiarOrg('rhtl')"
-                >Rarity: High to Low</v-list-item-title
+              ><v-list-item-title v-on:click="cambiarOrg('newest')"
+                >Newest</v-list-item-title
               ></v-list-item
             >
             <v-list-item link
-              ><v-list-item-title v-on:click="cambiarOrg('nhtl')"
-                >Number: High to Low</v-list-item-title
+              ><v-list-item-title v-on:click="cambiarOrg('oldest')"
+                >Oldest</v-list-item-title
+              ></v-list-item
+            >
+            <v-list-item link
+              ><v-list-item-title v-on:click="cambiarOrg('mostrare')"
+                >Most Rare</v-list-item-title
               ></v-list-item
             >
           </v-list>
@@ -103,6 +113,10 @@
         <h2 class="text-center cardName">
           {{ item.nombre }}
         </h2>
+
+        <p class="text-center cardRarity">
+          {{ item.rarity }}
+        </p>
       </v-card>
     </div>
   </v-container>
@@ -119,13 +133,16 @@ export default {
 
   data: () => ({
     uniqueId: null,
-    org: "Number: High to Low",
+    org: "Oldest",
     orgID: "item.DocID",
     drawer: null,
     search: "",
     attributes: {
       Skin: "Skin",
     },
+
+    mycolor:Math.round((Math.random()* (+2 + +10) + +1)),
+
     filteredItems: [],
     originalItems: [],
     checkboxes: [],
@@ -146,18 +163,25 @@ export default {
   },
   methods: {
     cambiarOrg(value) {
-      if (value == "rhtl") {
-        this.org = "Rarity: High to Low";
-        this.filteredItems = this.filteredItems.sort(function(a, b) {
-          return a.rarity - b.rarity;
-        });
-      }
-      if (value == "nhtl") {
-        this.org = "Number: High to Low";
+      if (value == "newest") {
+        this.org = "Newest";
         this.filteredItems = this.filteredItems.sort(function(a, b) {
           return b.id - a.id;
         });
       }
+      if (value == "oldest") {
+        this.org = "Oldest";
+        this.filteredItems = this.filteredItems.sort(function(a, b) {
+          return a.id - b.id;
+        });
+      }
+      if (value == "mostrare") {
+        this.org = "Most Rare";
+        this.filteredItems = this.filteredItems.sort(function(a, b) {
+          return a.rarity - b.rarity;
+        });
+      }
+      console.log(this.filteredItems)
     },
     checkboxFilter() {
       const isEmpty = this.checkboxes.every((item) => {
@@ -295,6 +319,45 @@ export default {
     this.createCheckBox("background");
     this.createCheckBox("accessory");
     this.createCheckBox("extra");
+
+
+    console.log(this.mycolor)
+    if(this.mycolor == 2){
+      this.mycolor = "#9DFF56"
+    }
+    if(this.mycolor == 3){
+      this.mycolor = "#57FFB4"
+    }
+    if(this.mycolor == 4){
+      this.mycolor = "#57B1FF"
+    }
+    if(this.mycolor == 5){
+      this.mycolor = "#DF57FF"
+    }
+    if(this.mycolor == 6){
+      this.mycolor = "#FF5696"
+    }
+    if(this.mycolor == 7){
+      this.mycolor = "#6E57FF"
+    }
+    if(this.mycolor == 8){
+      this.mycolor = "#1C1C1C"
+    }
+    if(this.mycolor == 9){
+      this.mycolor = "#ECECEC"
+    }
+    if(this.mycolor == 10){
+      this.mycolor = "#FF5656"
+    }
+    if(this.mycolor == 11){
+      this.mycolor = "#FF8D57"
+    }
+    if(this.mycolor == 12){
+      this.mycolor = "#FFCE57"
+    }
+
+    console.log(this.filteredItems)
+
   },
 
   computed: {
@@ -327,8 +390,10 @@ html, body
     font-size: 30px
     margin:0px 0px 10px 0px
 
-.v-main__wrap
-    background-color: #DF57FF
+
+//.v-main__wrap
+//    background: #DF57FF
+
 .v-application
     line-height: 1 !important
 
@@ -338,8 +403,10 @@ html, body
     display: flex
     flex-wrap: wrap
     justify-content: center
+    height: 100%
 .card_punky
     max-width: 300px
+    max-height: 397px
     margin: 10px
     cursor: pointer
     box-shadow:2px 2px 5px rgba(0,0,0,0.15)
@@ -407,4 +474,60 @@ html, body
   color: #fff !important
   font-family: 'Comfortaa', cursive !important
   font-weight: 800 !important
+
+.navigation_drawer
+  background-color: #6E57FF !important
+
+.v-navigation-drawer__content
+  padding: 15px
+
+.expansion_box
+  margin-bottom:5px
+  box-shadow: 0px 0px 0px rgba(0,0,0,0) !important
+  border-radius: 15px !important
+
+.expansion_title
+  color: #525252 !important
+  font-family: 'Comfortaa', cursive !important
+  font-weight: 600 !important
+
+.filter_box
+  padding:10px
+  margin-bottom: 10px
+.filters_title
+  color: #fff !important
+  font-family: 'Comfortaa', cursive !important
+  font-weight: 800 !important
+  background-color: none !important
+
+.checkboxes
+  color: #fff !important
+  font-family: 'Comfortaa', cursive !important
+  font-weight: 400 !important
+  font-size: 10px !important
+  height: 30px
+
+
+/* width */
+::-webkit-scrollbar 
+  width: 5px
+
+/* Track */
+::-webkit-scrollbar-track 
+  background: #6E57FF
+  border-radius: 5px
+
+
+/* Handle */
+::-webkit-scrollbar-thumb 
+  background: #fff
+
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover 
+  background: #fff
+
+@media (min-width: 0px)
+.container 
+    max-width: 1900px !important
 </style>
