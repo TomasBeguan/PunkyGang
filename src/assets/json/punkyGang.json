@@ -1,5 +1,4 @@
-
-  [
+[
         {
             "id": "000",
             "skin": "Dark Zombie",
@@ -17,6 +16,7 @@
             "rarityRank": "109",
             "img": "https://davinci.gallery/uploads/thumbs/QmShEGjKePoh2QsmCVfbZD3nApL2CwWmTUAoLPACnxgaqk",
             "url": "https://davinci.gallery/edit/0xe57bbedefdff93f94a678a936997054d58ee3725",
+            "imgBig": "https://davinci.gallery/uploads/artwork/QmShEGjKePoh2QsmCVfbZD3nApL2CwWmTUAoLPACnxgaqk",
             "undefined": "60"
         },
         {
@@ -35,7 +35,8 @@
             "rarity": "222",
             "rarityRank": "80",
             "img": "https://davinci.gallery/uploads/thumbs/QmWHYybd6itfzpNHS66BDABP32B7grRajgE2sdNpZpwG3W",
-            "url": "https://davinci.gallery/view/0xbf37069f83f63795232baa15d6dbd919d3e2d62b"
+            "url": "https://davinci.gallery/view/0xbf37069f83f63795232baa15d6dbd919d3e2d62b",
+            "imgBig": "https://davinci.gallery/uploads/artwork/QmWHYybd6itfzpNHS66BDABP32B7grRajgE2sdNpZpwG3W"
         },
         {
             "id": "002",
@@ -53,7 +54,8 @@
             "rarity": "232",
             "rarityRank": "87",
             "img": "https://davinci.gallery/uploads/thumbs/Qma3FPrcohsRfMoaLFwrmd2gzxevosA2YemgxdUcBFvbZv",
-            "url": "https://davinci.gallery/view/0x63c198d39f46fce64fe3499699d778dcb18e6af1"
+            "url": "https://davinci.gallery/view/0x63c198d39f46fce64fe3499699d778dcb18e6af1",
+            "imgBig": "https://davinci.gallery/uploads/artwork/Qma3FPrcohsRfMoaLFwrmd2gzxevosA2YemgxdUcBFvbZv"
         },
         {
             "id": "003",
@@ -71,7 +73,8 @@
             "rarity": "221",
             "rarityRank": "76",
             "img": "https://davinci.gallery/uploads/thumbs/QmfECenUYV3UuppAkuQndG5m2gipvujGGXtJzRQDpBQ57b",
-            "url": "https://davinci.gallery/view/0xee20d696ea8e0b64465039334b9f09395932508c"
+            "url": "https://davinci.gallery/view/0xee20d696ea8e0b64465039334b9f09395932508c",
+            "imgBig": "https://davinci.gallery/uploads/artwork/QmfECenUYV3UuppAkuQndG5m2gipvujGGXtJzRQDpBQ57b"
         },
         {
             "id": "004",

@@ -76,6 +76,7 @@
         href="https://davinci.gallery/artist/punkygang"
         class="btnDavinci"
       >
+      <img src="../assets/davinci.svg" width="20px" alt="davinci" class="davinci_svg">
         Davinci
       </v-btn>
     </v-app-bar>
@@ -128,30 +129,81 @@
 
     <v-dialog
       v-model="dialog"
-      width="500"
+      max-width="900"
     >
 
       <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          {{this.dialogID}}
-        </v-card-title>
-        <v-card-title class="text-h5 grey lighten-2">
-          {{this.dialogNombre}}
-        </v-card-title>
+        <div class="dialog_container">
+          <div class="dialog_izq">
+            <v-img
+              class="dialog_img"
+              :src="dialogImgBig"
+              :lazy-src="dialogImg"
+            ></v-img>
+            <h1 class="text-center cardID">#{{ this.dialogID }}</h1>
+            <h2 class="text-center cardName">{{ this.dialogNombre }}</h2>
+            <v-btn
+              dark
+              rounded
+              target="_blank"
+              :href="dialogURL"
+              class="btnDavinciDialog"
+              block
+            >
+            <img src="../assets/davinci.svg" width="20px" alt="davinci" class="davinci_svg">
+               View on Davinci
+            </v-btn>
+          </div>
+          <div class="dialog_der">
+            <div class="dialog_attributes">
+              <h3>ATTRIBUTES</h3>
+            </div>
+               <v-simple-table  class="tabla">
+                <template >
+                  <tbody>
+                    <tr><td>SKIN</td><td class="bl">{{ this.dialogSkin }}</td></tr>
+                    <tr><td>HAIR</td><td class="bl">{{ this.dialogHair }}</td></tr>
+                    <tr><td>HAIR COLOR</td><td class="bl">{{ this.dialogHairColor }}</td></tr>
+                    <tr><td>EYES</td><td class="bl">{{ this.dialogEyes }}</td></tr>
+                    <tr><td>RIGHT EAR</td><td class="bl">{{ this.dialogRightEar }}</td></tr>
+                    <tr><td>LEFT EAR</td><td class="bl">{{ this.dialogLeftEar }}</td></tr>
+                    <tr><td>MOUTH</td><td class="bl">{{ this.dialogMouth }}</td></tr>
+                    <tr><td>BACKGROUND</td><td class="bl">{{ this.dialogBackground }}</td></tr>
+                    <tr><td>ACCESSORY</td><td class="bl">{{ this.dialogAccessory }}</td></tr>
+                    <tr><td>EXTRA</td><td class="bl">{{ this.dialogExtra }}</td></tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
 
-        <v-divider></v-divider>
+              <div class="dialog_rank_cont">
+                <div>
+                  <h3 class="dialog_rank_rarity">RARITY RANK</h3>
+                  <h3 class="dialog_rank_number">{{this.dialogRarityRank}}</h3>
+                </div>
+              </div>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
+          </div>
+        
           <v-btn
-            color="primary"
-            text
+            class="dialog_close"
+            fab
+            dark
+            small
+            color="red"
             @click="dialog = false"
           >
-            I accept
+            <v-icon dark>
+              mdi-close
+            </v-icon>
           </v-btn>
-        </v-card-actions>
+
+        </div>
+
+        
+
       </v-card>
+
+
     </v-dialog>
     
 
@@ -185,6 +237,7 @@ export default {
     dialogNombre: "",
     dialogURL: "",
     dialogImg: "",
+    dialogImgBig: "",
 
     filteredItems: [],
     originalItems: [],
@@ -212,6 +265,19 @@ export default {
       this.dialogNombre = item.nombre
       this.dialogURL = item.url
       this.dialogImg = item.img
+      this.dialogImgBig = item.imgBig
+      this.dialogRarityRank = item.rarityRank
+
+      this.dialogSkin = item.skin
+      this.dialogHair = item.hair
+      this.dialogHairColor = item.hairColor
+      this.dialogEyes = item.eyes
+      this.dialogRightEar = item.rightEar
+      this.dialogLeftEar = item.leftEar
+      this.dialogMouth = item.mouth
+      this.dialogBackground = item.background
+      this.dialogAccessory = item.accessory
+      this.dialogExtra = item.extra
     },
 
     cambiarOrg(value) {
@@ -270,6 +336,10 @@ export default {
               item.leftEar.toLowerCase().trim()
             ) &&
               this.checkboxes[index].title == "leftEar") ||
+            (this.checkboxes[index].selected.includes(
+              item.mouth.toLowerCase().trim()
+            ) &&
+              this.checkboxes[index].title == "mouth") ||
             (this.checkboxes[index].selected.includes(
               item.background.toLowerCase().trim()
             ) &&
@@ -362,12 +432,13 @@ export default {
     this.originalItems = this.filteredItems;
 
     //generate skin checkbox
-    this.createCheckBox("hair");
     this.createCheckBox("skin");
+    this.createCheckBox("hair");
     this.createCheckBox("hairColor");
     this.createCheckBox("eyes");
     this.createCheckBox("rightEar");
     this.createCheckBox("leftEar");
+    this.createCheckBox("mouth");
     this.createCheckBox("background");
     this.createCheckBox("accessory");
     this.createCheckBox("extra");
@@ -375,35 +446,25 @@ export default {
 
     if(this.mycolor == 2){
       this.mycolor = "#9DFF56"
-    }
-    if(this.mycolor == 3){
+    }if(this.mycolor == 3){
       this.mycolor = "#57FFB4"
-    }
-    if(this.mycolor == 4){
+    }if(this.mycolor == 4){
       this.mycolor = "#57B1FF"
-    }
-    if(this.mycolor == 5){
+    }if(this.mycolor == 5){
       this.mycolor = "#DF57FF"
-    }
-    if(this.mycolor == 6){
+    }if(this.mycolor == 6){
       this.mycolor = "#FF5696"
-    }
-    if(this.mycolor == 7){
+    }if(this.mycolor == 7){
       this.mycolor = "#6E57FF"
-    }
-    if(this.mycolor == 8){
+    }if(this.mycolor == 8){
       this.mycolor = "#1C1C1C"
-    }
-    if(this.mycolor == 9){
+    }if(this.mycolor == 9){
       this.mycolor = "#ECECEC"
-    }
-    if(this.mycolor == 10){
+    }if(this.mycolor == 10){
       this.mycolor = "#FF5656"
-    }
-    if(this.mycolor == 11){
+    }if(this.mycolor == 11){
       this.mycolor = "#FF8D57"
-    }
-    if(this.mycolor == 12){
+    }if(this.mycolor == 12){
       this.mycolor = "#FFCE57"
     }
 
@@ -586,5 +647,97 @@ html, body
 @media (min-width: 0px)
 .container 
     max-width: 1900px !important
+
+
+.v-sheet.v-card
+  border-radius: 20px !important
+
+
+
+.v-dialog 
+  border-radius: 20px !important
+
+.dialog_container
+  padding: 20px
+  display: flex
+  flex-direction: row
+
+.dialog_izq
+  width: 60%
+.dialog_der
+  width: 40%
+  padding-left:10px
+  display: flex
+  flex-direction: column
+.dialog_img
+  border-radius: 15px !important
+
+@media (max-width: 425px) 
+  .dialog_container
+    flex-direction: column
+  .dialog_izq
+    width: 100%
+  .dialog_der
+    width: 100%
+    padding-left:0px
+  .btnDavinciDialog
+    margin-bottom: 20px !important 
+
+.btnDavinciDialog
+  background: linear-gradient(90deg, rgba(4,177,231,1) 0%, rgba(100,247,191,1) 100%) !important
+  border: solid 2px #fff !important
+  font-family: 'Comfortaa', cursive !important
+  font-weight: 500 !important
+  margin-bottom: 0px
+
+.tabla
+  font-family: 'Comfortaa', cursive !important
+  color: #555 !important
+  font-weight: 600
+  border: thin solid rgba(0, 0, 0, 0.12)
+  border-radius:15px !important
+.bl
+  border-left: thin solid rgba(0, 0, 0, 0.12)
+  font-weight: 200 !important
+
+.davinci_svg
+  margin-right:5px
+
+.dialog_attributes
+  background: #828282
+  padding: 10px 0px 10px 0px
+  font-family: 'Comfortaa', cursive !important
+  color: #fff !important
+  font-weight: 600
+  margin-bottom: 10px
+  border-radius: 10px
+  text-align: center
+  font-size: 15px
+
+.dialog_rank_cont
+  font-family: 'Comfortaa', cursive !important
+  color: #7B7B7B !important
+  font-weight: 200
+  text-align: center
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 100%
+.dialog_rank_rarity
+  font-size: 15px
+  margin-top: 15px
+.dialog_rank_number
+  font-size: 50px
+  margin-top: 5px
+  font-weight: 200 !important
+
+
+.dialog_close
+  position: absolute !important
+  right: 10px
+  top: 10px
+
+
+
 
 </style>
