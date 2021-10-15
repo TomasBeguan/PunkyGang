@@ -49,23 +49,25 @@
               </v-icon>
             </v-btn>
           </template>
-          <v-list>
-            <v-list-item link
+
+          <v-list rounded class="list_" >
+            <v-list-item link class="list_item"
               ><v-list-item-title v-on:click="cambiarOrg('newest')"
                 >Newest</v-list-item-title
               ></v-list-item
             >
-            <v-list-item link
+            <v-list-item link class="list_item"
               ><v-list-item-title v-on:click="cambiarOrg('oldest')"
                 >Oldest</v-list-item-title
               ></v-list-item
             >
-            <v-list-item link
+            <v-list-item link class="list_item"
               ><v-list-item-title v-on:click="cambiarOrg('mostrare')"
                 >Most Rare</v-list-item-title
               ></v-list-item
             >
           </v-list>
+
         </v-menu>
       </div>
 
@@ -92,6 +94,7 @@
         prepend-inner-icon="mdi-magnify"
         class="textField"
         rounded
+        @click:clear="callItBack()"
       ></v-text-field>
     </div>
 
@@ -258,6 +261,9 @@ export default {
     },
   },
   methods: {
+    callItBack(){
+      this.search = ""
+    },
     openDialog(item){
       console.log(item)
       this.dialog = true
@@ -737,6 +743,20 @@ html, body
   right: 10px
   top: 10px
 
+
+.v-menu__content
+  box-shadow: none !important 
+.theme--light.v-list
+  background: rgba(0,0,0,0) !important
+.list_
+  font-family: 'Comfortaa', cursive !important
+  color: #7B7B7B !important
+  font-weight: 200
+.list_item
+  background: #fff
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3)
+  text-align: center
+  border: solid 2px white
 
 
 
