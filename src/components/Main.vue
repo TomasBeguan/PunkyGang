@@ -550,7 +550,6 @@ html, body
   font-family: 'Comfortaa', cursive !important
   font-weight: 800 !important
   color: #C9C9C9
-  font-size: 35px
 
 .v-input--selection-controls
     margin-top: 0px !important
