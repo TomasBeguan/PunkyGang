@@ -549,7 +549,8 @@ html, body
 .textField
   font-family: 'Comfortaa', cursive !important
   font-weight: 800 !important
-  color: #C9C9C9
+  color: #C9C9C9 !important
+  font-size: 20px !important
 
 .v-input--selection-controls
     margin-top: 0px !important
@@ -758,5 +759,8 @@ html, body
   border: solid 2px white
 
 
+.v-input textarea 
+  color: rgb(70 70 70 / 87%) !important
+  font-size: 20px !important
 
 </style>
